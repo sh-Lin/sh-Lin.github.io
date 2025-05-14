@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SH-Lin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Lexend+Deca:wght@100..900&family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="static/SHLIN-Logo-2.svg">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: white;
+            overflow: hidden;
+            color: #333;
+            position: relative;
+        }
+        
+        /* 创建十字形图案的背景 */
+        .cross-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .cross {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: transparent;
+        }
+        
+        .cross::before,
+        .cross::after {
+            content: '';
+            position: absolute;
+            background-color: #f0f0f0;
+        }
+        
+        .cross::before {
+            width: 10px;
+            height: 2px;
+            top: 4px;
+            left: 0;
+        }
+        
+        .cross::after {
+            width: 2px;
+            height: 10px;
+            top: 0;
+            left: 4px;
+        }
+        
+        .logo-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+        
+        .inner-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 180px;
+            height: 180px;
+            z-index: 2;
+        }
+        
+        .logo {
+            display: block;
+            width: 180px;
+            height: 180px;
+        }
+        
+        .border-container {
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 20px;
+            box-shadow: 0 0 15px rgba(0, 180, 180, 0.1);
+            border: 1px solid rgba(0, 180, 180, 0.1);
+            overflow: visible;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+        
+        /* SVG 加载动画 */
+        .loading-svg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 230px;
+            height: 230px;
+            z-index: 3;
+        }
+        
+        /* 静态路径 */
+        .path-bg {
+            fill: none;
+            stroke: rgba(0, 180, 180, 0.1);
+            stroke-width: 2;
+            stroke-linecap: round;
+        }
+        
+        /* 动画路径 */
+        .animated-path {
+            fill: none;
+            stroke: #00b4b4;
+            stroke-width: 4;
+            stroke-linecap: round;
+            stroke-dasharray: 100 750; /* 线段长度和总长度 */
+            filter: url(#glow);
+            animation: dash 4s linear infinite;
+        }
+        
+        @keyframes dash {
+            to {
+                stroke-dashoffset: -850; /* 完整周长 */
+            }
+        }
+        
+        .text {
+            margin-top: 50px;
+            font-family: "Orbitron", sans-serif;
+            /* font-family: "Lexend Deca", sans-serif; */
+            font-optical-sizing: auto;
+            font-size: 24px;
+            letter-spacing: 2px;
+            color: #333;
+            font-weight: 750;
+            z-index: 1;
+        }
+        
+        .copyright {
+            position: fixed;
+            bottom: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+            z-index: 1;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+    <div class="cross-background" id="crossBackground"></div>
+    <div class="logo-container">
+        <div class="border-container"></div>
+        <svg class="loading-svg" viewBox="0 0 230 230" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <filter id="glow">
+                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                    <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                </filter>
+            </defs>
+            
+            <!-- 路径定义 -->
+            <path class="path-bg" 
+                  d="M 25,5 H 205 A 20,20 0 0 1 225,25 V 205 A 20,20 0 0 1 205,225 H 25 A 20,20 0 0 1 5,205 V 25 A 20,20 0 0 1 25,5 Z" />
+            
+            <!-- 动画路径 -->
+            <path class="animated-path" 
+                  d="M 25,5 H 205 A 20,20 0 0 1 225,25 V 205 A 20,20 0 0 1 205,225 H 25 A 20,20 0 0 1 5,205 V 25 A 20,20 0 0 1 25,5 Z" />
+        </svg>
+        <div class="inner-container">
+            <img src="static/SHLIN-Logo-2.svg" alt="SHLIN Logo" class="logo">
+        </div>
+    </div>
+    <div class="text">Working in Progress...</div>
+    <div class="copyright">COPYRIGHT 2025 Shaoheng Lin. All Rights Reserved.</div>
+    
+    <script>
+        // 创建十字形背景
+        function createCrossPattern() {
+            const container = document.getElementById('crossBackground');
+            const spacing = 50; // 十字形之间的间距
+            
+            // 计算需要多少行和列
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+            
+            const columns = Math.ceil(screenWidth / spacing) + 1;
+            const rows = Math.ceil(screenHeight / spacing) + 1;
+            
+            // 创建十字形并添加到容器
+            for (let y = 0; y < rows; y++) {
+                for (let x = 0; x < columns; x++) {
+                    const cross = document.createElement('div');
+                    cross.className = 'cross';
+                    cross.style.left = (x * spacing) + 'px';
+                    cross.style.top = (y * spacing) + 'px';
+                    container.appendChild(cross);
+                }
+            }
+        }
+        
+        // 页面加载时创建十字形背景
+        window.addEventListener('load', createCrossPattern);
+        
+        // 窗口调整大小时重新创建十字形背景
+        window.addEventListener('resize', function() {
+            const container = document.getElementById('crossBackground');
+            container.innerHTML = '';
+            createCrossPattern();
+        });
+    </script>
+</body>
+</html>
